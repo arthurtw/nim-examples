@@ -11,9 +11,9 @@ Options:
     -h --help           print this help menu
 """
 
-proc doJob(inFilenames: seq[string] = nil,
-           outFilename: string = nil,
-           ignoreCase: bool = false) {.raises: [IOError].} =
+proc doWork(inFilenames: seq[string] = nil,
+            outFilename: string = nil,
+            ignoreCase: bool = false) {.raises: [IOError].} =
   # Open files
   var
     infiles: seq[File] = @[stdin]
@@ -57,7 +57,7 @@ proc main() =
       of "o": outFilename = val
       else: discard
     of cmdEnd: discard
-  doJob(inFilenames, outFilename, ignoreCase)
+  doWork(inFilenames, outFilename, ignoreCase)
 
 when isMainModule:
   main()
