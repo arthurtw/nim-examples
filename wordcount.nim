@@ -27,19 +27,19 @@ proc doWork(inFilenames: seq[string] = nil,
     raise newException(IOError, "Failed to open file: " & outFilename)
 
   # Parse words
-  var count = initCountTable[string]()
+  var counts = initCountTable[string]()
   for infile in infiles:
     for line in infile.lines:
       let input = if ignoreCase: line.tolower() else: line
       let words = try: input.findAll(peg"\w+") except: @[]
       for word in words:
-        inc(count, word)
+        counts.inc(word)
 
   # Write counts
-  var words = toSeq(count.keys)
+  var words = toSeq(counts.keys)
   sort(words, cmp)
   for word in words:
-    outfile.writeln(count[word], '\t', word)
+    outfile.writeln(counts[word], '\t', word)
 
 proc main() =
   # Parse arguments
